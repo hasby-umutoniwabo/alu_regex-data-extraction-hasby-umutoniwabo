@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Pattern Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Text Pattern Analyzer</h1>
+        
+        <div class="input-section">
+            <textarea id="inputText" placeholder="Paste your text here to analyze patterns like emails, phone numbers, HTML tags, and hashtags..."></textarea>
+            <button onclick="analyzeText()">Analyze Text</button>
+            <div class="sample-text">
+                Try this sample: user@example.com 123.456.7890 &lt;p&gt; Kmk original 2:30 PM #example @call 400 RWF
+            </div>
+        </div>
+        
+        <div id="results" class="results-section"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
