@@ -1,6 +1,5 @@
 Text Pattern Analyzer
-A powerful JavaScript tool for extracting and validating common patterns from text, including emails, phone numbers, URLs, hashtags, HTML tags, times, and currency amounts.
-Features
+A simple web application that analyzes text to find and validate common patterns like email addresses, URLs, phone numbers, HTML tags, and hashtags.
 
 Extract multiple pattern types simultaneously
 Validate extracted patterns
