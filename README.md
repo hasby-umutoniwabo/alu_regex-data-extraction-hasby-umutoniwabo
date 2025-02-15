@@ -1,126 +1,80 @@
-**Text Pattern Analyzer**
-A simple web application that analyzes text to find and validate common patterns like email addresses, URLs, phone numbers, HTML tags, and hashtags.
-Project Overview
-**This project provides a user-friendly interface to:
-**
-_Detect email addresses (e.g., user@example.com)
-Find URLs (e.g., https://example.com)
-Identify phone numbers in various formats (e.g., (123) 456-7890, 123-456-7890)
-Locate HTML tags (e.g., <div>, <p class="text">)
-Extract hashtags (e.g., #example, #code123)_
+Text Pattern Analyzer
+A powerful JavaScript tool for extracting and validating common patterns from text, including emails, phone numbers, URLs, hashtags, HTML tags, times, and currency amounts.
+Features
 
-**Features**
+Extract multiple pattern types simultaneously
+Validate extracted patterns
+Remove duplicates automatically
+Handle edge cases and malformed inputs
+Clean, responsive UI
+Real-time pattern matching
 
-Real-time pattern detection
-Duplicate removal
-Pattern validation
-Clean and responsive user interface
-Count display for each pattern type
-Simple copy-paste functionality
+Supported Patterns
 
-**File Structure**
+Email Addresses: e.g., user@example.com
+Url: e.g., https://intranet.aluswe.com/user_containers/35279/webterm
+Phone Numbers: e.g., 123.456.7890
+HTML Tags: e.g., <p>
+Hashtags: e.g., #example
+CreditCard: e.g., 1234 5678 9012 3456
 
-│
-├── Analyzer.html   # Main HTML file
-├── script.js       # JavaScript logic for pattern analysis
-└── styles.css      # CSS styles for the application
+Setup
 
-**Setup Instructions**
+Clone the repository:
 
-Download the Project (Download all three files):
-analyzer.html
-script.js
-styles.css
+bashCopygit clone https://github.com/yourusername/text-pattern-analyzer.git
 
-Place them in the same directory
+Open the project:
 
-**Local Setup**
+bashCopycd text-pattern-analyzer
 
-No build process or dependencies required
-No server needed - runs entirely in the browser
-Just open analyzer.html in a web browser
+Open index.html in your web browser.
 
-**Usage Instructions**
+Usage
 
-Open analyzer.html in your web browser
-Paste or type text into the input area
-Click the "Analyze" button
-View the results showing:
+Input your text in the textarea
+Click "Analyze Text"
+View the extracted patterns grouped by type
 
-Number of matches found for each pattern
-List of all unique matches
-Validation status for each match
+Example Input:
+textCopyuser@example.com 123.456.7890 <p> Kmk original 2:30 PM #example @call 400 RWF
+Example Output:
+CopyEmail Addresses (1)
+- user@example.com ✓ Valid
 
-**Pattern Details**
-The analyzer looks for the following patterns:
+Phone Numbers (1)
+- 123.456.7890 ✓ Valid
 
-**Email Addresses**
-Matches standard email formats
-Example: username@domain.com
+HTML Tags (1)
+- <p> ✓ Valid
 
-**URLs**
-Matches http and https URLs
-Example: https://www.example.com
+Hashtags (1)
+- #example ✓ Valid
+Project Structure
+Copytext-pattern-analyzer/
+├── Analyzer.html          # Main interface
+├── styles.css          # Styling
+└── script.js          # Core functionality
+Core Components
+Pattern Validator
 
-**Phone Numbers**
-Matches common US phone number formats
-Supports formats:(123) 456-7890 123-456-7890 123.456.7890
+Handles pattern matching and validation
+Uses optimized regex patterns
+Includes error handling
 
-**HTML Tags**
-Matches any HTML tag
-Examples:  <div> <p class="text">  <a href="link">
+User Interface
 
-**Hashtags**
-Matches standard hashtag format
-Examples: #example #code123 #programming
+Clean, responsive design
+Real-time validation
+Clear result presentation
 
-**Technical Details**
+Testing
+Sample test cases are provided in the interface. For comprehensive testing, try:
 
-**Technologies Used** _HTML5
-                      CSS3 (separate stylesheet)
-                      Regular Expressions (RegEx)_
+Different email formats
+Various phone number patterns
+Nested HTML tags
+Mixed currency formats
+Multiple patterns in one text
 
-**Browser Compatibility**
-Works in all modern browsers: Chrome (recommended)
-                              Firefox
-                              Safari
-                              Edge
-**Customization**
-_JavaScript Customization_
-You can modify the patterns in script.js:
-                                         ** const patterns = {
-                                              email: /your-custom-email-pattern/g,
-                                              url: /your-custom-url-pattern/g,
-                                              // Add more patterns as needed
-                                          };**
-**Style Customization**
-Modify styles.css to change the appearance:
-                                            **/* Change colors */
-                                                .pattern-group {
-                                                    background-color: your-color;
-                                                }
-                                                /* Modify layout */
-                                                .container {
-                                                    max-width: your-width;
-                                                }**
-**Troubleshooting**
-
-**No Results Showing**
-Check if text was entered in the input area
-Verify that the text contains valid patterns
-Ensure JavaScript is enabled in your browser
-
-**Pattern Not Detected**
-Verify the pattern format matches the expected format
-Check for typos or formatting issues
-Ensure the pattern is one of the supported types
-
-**Styles Not Loading**
-Confirm styles.css is in the same directory as analyzer.html
-Check browser console for any CSS loading errors
-Verify file permissions
-
-**Page Not Loading**
-Confirm all three files are in the same directory
-Check browser console for any errors
-Try using a different browser                                                
+Future Enhancements: Additional pattern types
