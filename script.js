@@ -1,132 +1,46 @@
-class TextAnalyzer {
-    constructor() {
-        this.patterns = {
-            email: {
-                extract: /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(?:\.[a-zA-Z]{2,})/g,
-                validate: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*(?:\.[a-zA-Z]{2,})$/
-            },
-            phone: {
-                extract: /(?:\+?1[-.]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/g,
-                validate: /^(?:\+?1[-.]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-            },
-            htmlTag: {
-                extract: /<[^>]+>/g,
-                validate: /^<[^>]+>$/
-            },
-            hashtag: {
-                extract: /#[a-zA-Z0-9_]+/g,
-                validate: /^#[a-zA-Z0-9_]+$/
-            },
-        };
-    }
+// Define patterns to search for in the text using regular expressions
 
-    extractAll(text) {
-        if (typeof text !== 'string') {
-            throw new Error('Input must be a string');
-        }
+// Each pattern will match different types of text like emails, URLs, etc.
+const patterns = {
+    // Matches emails like: user@example.com
+    email: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g,
+    
+    // Matches URLs like: http://example.com or https://site.com
+    url: /https?:\/\/[^\s/$.?#].[^\s]*/g,
+    
+    // Matches phone numbers like: (123) 456-7890 or 123-456-7890
+    phone: /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/g,
+    
+    // Matches HTML tags like: <div> or <p class="text">
+    htmlTag: /<[^>]+>/g,
+    
+    // Matches hashtags like: #example or #code123
+    hashtag: /#[a-zA-Z0-9_]+/g
+};
 
-        const results = {};
-        
-        for (const [key, pattern] of Object.entries(this.patterns)) {
-            const matches = [...new Set(text.match(pattern.extract) || [])];
-            results[key] = {
-                matches,
-                count: matches.length
-            };
-        }
-
-        return results;
-    }
-
-    validate(value, type) {
-        if (!this.patterns[type]) {
-            throw new Error(`Unknown pattern type: ${type}`);
-        }
-
-        const pattern = this.patterns[type].validate;
-        const isValid = pattern.test(value);
-
-        return {
-            isValid,
-            type,
-            value,
-            message: isValid ? 
-                `Valid ${type} format` : 
-                `Invalid ${type} format`
-        };
-    }
-
-    validateMatches(extractionResults) {
-        const validationResults = {};
-
-        for (const [type, result] of Object.entries(extractionResults)) {
-            validationResults[type] = result.matches.map(match => this.validate(match, type));
-        }
-
-        return validationResults;
-    }
-}
-
-const analyzer = new TextAnalyzer();
-
-function displayResults(extractionResults, validationResults) {
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
-
-    const patternNames = {
-        email: 'Email Addresses',
-        phone: 'Phone Numbers',
-        htmlTag: 'HTML Tags',
-        hashtag: 'Hashtags',
-    };
-
-    for (const [type, result] of Object.entries(extractionResults)) {
-        const patternGroup = document.createElement('div');
-        patternGroup.className = 'pattern-group';
-
-        const header = document.createElement('div');
-        header.className = 'pattern-header';
-
-        const title = document.createElement('div');
-        title.className = 'pattern-title';
-        title.textContent = patternNames[type] || type;
-
-        const count = document.createElement('span');
-        count.className = 'match-count';
-        count.textContent = result.count;
-
-        header.appendChild(title);
-        header.appendChild(count);
-        patternGroup.appendChild(header);
-
-        if (result.matches.length > 0) {
-            result.matches.forEach((match, index) => {
-                const validation = validationResults[type][index];
-                const matchItem = document.createElement('div');
-                matchItem.className = 'match-item';
-                matchItem.textContent = match;
-
-                const validationStatus = document.createElement('span');
-                validationStatus.className = `validation-status ${validation.isValid ? 'valid' : 'invalid'}`;
-                validationStatus.textContent = validation.isValid ? '✓ Valid' : '✗ Invalid';
-
-                matchItem.appendChild(validationStatus);
-                patternGroup.appendChild(matchItem);
-            });
-        } else {
-            const noMatches = document.createElement('div');
-            noMatches.className = 'no-matches';
-            noMatches.textContent = 'No matches found';
-            patternGroup.appendChild(noMatches);
-        }
-
-        resultsDiv.appendChild(patternGroup);
-    }
-}
-
+// Main function that runs when "Analyze" button is clicked
 function analyzeText() {
+    // Get the text from the input field and the results div
     const text = document.getElementById('inputText').value;
-    const extractionResults = analyzer.extractAll(text);
-    const validationResults = analyzer.validateMatches(extractionResults);
-    displayResults(extractionResults, validationResults);
+    const results = document.getElementById('results');
+    results.innerHTML = ''; // Clear previous results
+    
+    // Process each pattern type (email, url, etc.)
+    Object.entries(patterns).forEach(([type, pattern]) => {
+        // Find matches and remove duplicates using Set
+        const matches = [...new Set(text.match(pattern) || [])];
+        
+        // Add results to the page using HTML template
+        results.innerHTML += `
+            <div class="pattern-group">
+                <div class="pattern-header">
+                    <div class="pattern-title">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                    <span class="match-count">${matches.length}</span>
+                </div>
+                ${matches.length ? matches.map(match => 
+                    `<div class="match-item">${match}<span class="validation-status valid">✓ Valid</span></div>`
+                ).join('') : '<div class="no-matches">No matches found</div>'}
+            </div>
+        `;
+    });
 }
