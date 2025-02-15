@@ -15,7 +15,10 @@ const patterns = {
     htmlTag: /<[^>]+>/g,
     
     // Matches hashtags like: #example or #code123
-    hashtag: /#[a-zA-Z0-9_]+/g
+    hashtag: /#[a-zA-Z0-9_]+/g,
+
+    // Matches credit card numbers: 1234 5678 9012 3456 1234-5678-9012-3456
+    creditCard: /\b(?:\d{4}[- ]?){3}\d{4}|\d{15,16}\b/g
 };
 
 // Main function that runs when "Analyze" button is clicked
