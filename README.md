@@ -21,13 +21,13 @@ Setup
 
 Clone the repository:
 
-bashCopygit clone https://github.com/yourusername/text-pattern-analyzer.git
+ _git clone https://github.com/hasby-umutoniwabo/alu_regex-data-extraction-hasby-umutoniwabo.git_
 
 Open the project:
 
-bashCopycd text-pattern-analyzer
+ _cd alu_regex-data-extraction-hasby-umutoniwabo_
 
-Open index.html in your web browser.
+Open Analyzer.html in your web browser.
 
 Usage
 
@@ -36,23 +36,32 @@ Click "Analyze Text"
 View the extracted patterns grouped by type
 
 Example Input:
-textCopyuser@example.com 123.456.7890 <p> Kmk original 2:30 PM #example @call 400 RWF
+user@example.com 123.456.7890 <p> Kmk original 2:30 PM #example @call 400 RWF
+
 Example Output:
-CopyEmail Addresses (1)
-- user@example.com ✓ Valid
+
+Email Addresses (1)
+user@example.com ✓ Valid
+
+URLs (0)
+No matches found
 
 Phone Numbers (1)
-- 123.456.7890 ✓ Valid
+123.456.7890 ✓ Valid
 
 HTML Tags (1)
-- <p> ✓ Valid
+<p> ✓ Valid
 
 Hashtags (1)
-- #example ✓ Valid
+#example ✓ Valid
+
+Credit Card (0)
+No matches found
+
 Project Structure
-Copytext-pattern-analyzer/
-├── Analyzer.html          # Main interface
-├── styles.css          # Styling
+
+├── Analyzer.html      # Main interface
+├── styles.css         # Styling
 └── script.js          # Core functionality
 Core Components
 Pattern Validator
